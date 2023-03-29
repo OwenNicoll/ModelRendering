@@ -89,8 +89,65 @@ void display() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 
+    //------------------------------------------------
+    //  PROJECTION MATRIX
+    //------------------------------------------------
+
+    // Setup
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+
+    // Clipping planes
+    float clipNear = 0.1f, clipFar = 100.0f;
+
+
+    // Orthographic View
+    float orthoLeft = -1, orthoRight = 1, orthoTop = 1, orthoBottom = -1;
+
+   // glOrtho(orthoLeft, orthoRight, orthoBottom, orthoTop, clipNear, clipFar);
+
+
+    // Perspective View
+    float fov = 90, aspectRatio = windowWidth / windowHeight;
+    gluPerspective(fov, aspectRatio, clipNear, clipFar);
+    
+    //------------------------------------------------
+    //  VIEW AND MODEL MATRICES COMBINED
+    //------------------------------------------------
+
+    // Setup the matrix to be edited
+    glMatrixMode(GL_MODELVIEW);
+
+
     // Reset the matrix
     glLoadIdentity();
+
+    //------------------------------------------------
+   //  VIEW TRANSFORMS
+   //------------------------------------------------
+    float cameraX = 0, cameraY = 0, cameraZ = -1;
+    float lookX = 0, lookY = 0.6, lookZ = 0;
+    float upX = 0, upY = 1, upZ = 0;
+
+    gluLookAt(cameraX, cameraY, cameraZ, lookZ, lookY, lookZ, upX, upY, upZ);
+
+
+    //------------------------------------------------
+    //  MODEL TRANSFORMS
+    //------------------------------------------------
+
+
+    // Translate to set location
+    glTranslatef(0.0f, 0.0f, 0.0f);
+
+
+    // Rotate to the correct angles
+    glRotatef(0, 0.0f, 1.0f, 0.0f);     // x axis, pitch
+    glRotatef(0, 1.0f, 0.0f, 0.0f);     // y axis, yaw
+    glRotatef(0, 0.0f, 0.0f, 1.0f);     // z axis, roll
+
+    // Scale to desired dimmensions
+    glScalef(1.25f, 0.5f, 0.5f);
 
 
 
